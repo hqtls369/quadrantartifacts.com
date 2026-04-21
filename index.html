@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -30,192 +31,215 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+body { background: var(–bg); color: var(–text); font-family: var(–sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
 body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: linear-gradient(rgba(201,162,39,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,162,39,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none; z-index: 0;
+content: ‘’;
+position: fixed; inset: 0;
+background-image: linear-gradient(rgba(201,162,39,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,162,39,0.03) 1px, transparent 1px);
+background-size: 60px 60px;
+pointer-events: none; z-index: 0;
 }
 
 /* NAV */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 48px;
-  border-bottom: 1px solid var(--border-dim);
-  background: rgba(8,8,12,0.85);
-  backdrop-filter: blur(12px);
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; align-items: center; justify-content: space-between;
+padding: 20px 48px;
+border-bottom: 1px solid var(–border-dim);
+background: rgba(8,8,12,0.85);
+backdrop-filter: blur(12px);
 }
-.nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+.nav-logo { font-family: var(–mono); font-size: 13px; font-weight: 500; color: var(–gold); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
 .nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--gold); }
-.nav-live { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; }
-.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+.nav-links a { font-family: var(–mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(–text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(–gold); }
+.nav-live { display: flex; align-items: center; gap: 8px; font-family: var(–mono); font-size: 11px; }
+.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(–green); animation: pulse 2s ease-in-out infinite; }
 .price-change { font-size: 10px; padding: 2px 6px; border-radius: 2px; }
-.up { background: rgba(76,175,122,0.15); color: var(--green); }
-.down { background: rgba(224,82,82,0.15); color: var(--red); }
+.up { background: rgba(76,175,122,0.15); color: var(–green); }
+.down { background: rgba(224,82,82,0.15); color: var(–red); }
 
 /* HERO */
 .hero {
-  position: relative; min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 48px 80px; z-index: 1; overflow: hidden;
+position: relative; min-height: 100vh;
+display: flex; flex-direction: column; justify-content: center;
+padding: 120px 48px 80px; z-index: 1; overflow: hidden;
 }
-.hero-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
-.hero-label::before { content: '▸ '; opacity: 0.6; }
-.hero-title { font-family: var(--serif); font-size: clamp(56px, 9vw, 120px); font-weight: 600; line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards; }
-.hero-title em { font-style: italic; color: var(--gold); }
-.hero-sub { font-family: var(--serif); font-size: clamp(22px, 3vw, 40px); font-weight: 400; font-style: italic; color: var(--text-muted); margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
-.hero-desc { max-width: 520px; font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards; }
+.hero-label { font-family: var(–mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(–gold); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
+.hero-label::before { content: ’▸ ’; opacity: 0.6; }
+.hero-title { font-family: var(–serif); font-size: clamp(56px, 9vw, 120px); font-weight: 600; line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards; }
+.hero-title em { font-style: italic; color: var(–gold); }
+.hero-sub { font-family: var(–serif); font-size: clamp(22px, 3vw, 40px); font-weight: 400; font-style: italic; color: var(–text-muted); margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+.hero-desc { max-width: 520px; font-size: 15px; color: var(–text-muted); line-height: 1.8; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards; }
 .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
-.hero-bg-text { position: absolute; right: -40px; bottom: -20px; font-family: var(--serif); font-size: 280px; font-weight: 600; color: rgba(201,162,39,0.03); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
+.hero-bg-text { position: absolute; right: -40px; bottom: -20px; font-family: var(–serif); font-size: 280px; font-weight: 600; color: rgba(201,162,39,0.03); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
 
 /* BUTTONS */
-.btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--gold); color: #08080C; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: transparent; color: var(--text-muted); font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s, transform 0.15s; }
-.btn-outline:hover { color: var(--gold); border-color: var(--border); transform: translateY(-1px); }
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(–gold); color: #08080C; font-family: var(–mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-primary:hover { background: var(–gold-light); transform: translateY(-1px); }
+.btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: transparent; color: var(–text-muted); font-family: var(–mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(–border-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s, transform 0.15s; }
+.btn-outline:hover { color: var(–gold); border-color: var(–border); transform: translateY(-1px); }
 
 /* DIVIDER */
-.divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.3; }
+.divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(–gold), transparent); opacity: 0.3; }
 
 /* SECTIONS */
 section { position: relative; z-index: 1; padding: 100px 48px; }
-.section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; opacity: 0.8; }
-.section-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 52px); font-weight: 600; line-height: 1.1; margin-bottom: 16px; }
-.section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; line-height: 1.8; }
+.section-label { font-family: var(–mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; opacity: 0.8; }
+.section-title { font-family: var(–serif); font-size: clamp(32px, 4vw, 52px); font-weight: 600; line-height: 1.1; margin-bottom: 16px; }
+.section-sub { font-size: 15px; color: var(–text-muted); max-width: 560px; line-height: 1.8; }
 
 /* PILLARS */
-.pillars { background: var(--bg2); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); }
+.pillars { background: var(–bg2); border-top: 1px solid var(–border-dim); border-bottom: 1px solid var(–border-dim); }
 .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 64px; }
-.pillar { padding: 40px 36px; border-right: 1px solid var(--border-dim); transition: background 0.3s; }
+.pillar { padding: 40px 36px; border-right: 1px solid var(–border-dim); transition: background 0.3s; }
 .pillar:last-child { border-right: none; }
-.pillar:hover { background: var(--bg3); }
-.pillar-number { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--gold-dim); margin-bottom: 20px; }
-.pillar-title { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 12px; }
-.pillar-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+.pillar:hover { background: var(–bg3); }
+.pillar-number { font-family: var(–mono); font-size: 10px; letter-spacing: 0.2em; color: var(–gold-dim); margin-bottom: 20px; }
+.pillar-title { font-family: var(–serif); font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+.pillar-desc { font-size: 13px; color: var(–text-muted); line-height: 1.8; }
 .pillar-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid var(--border-dim); color: var(--text-muted); }
+.tag { font-family: var(–mono); font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid var(–border-dim); color: var(–text-muted); }
 
 /* ECOSYSTEM — QUADRANT HUB */
-.ecosystem { border-top: 1px solid var(--border-dim); }
+.ecosystem { border-top: 1px solid var(–border-dim); }
 .hub-box {
-  margin-top: 64px;
-  border: 1px solid var(--border);
-  background: var(--bg2);
-  padding: 40px;
+margin-top: 64px;
+border: 1px solid var(–border);
+background: var(–bg2);
+padding: 40px;
 }
-.hub-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-dim); }
-.hub-title { font-family: var(--serif); font-size: 28px; font-weight: 600; }
-.hub-title em { font-style: italic; color: var(--gold); }
-.hub-badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(42,190,170,0.3); padding: 6px 14px; }
-.hub-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; max-width: 600px; margin-bottom: 40px; }
-.agents-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-dim); }
-.agents-col { background: var(--bg); display: flex; flex-direction: column; gap: 0; }
-.agents-col-header { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 20px; border-bottom: 1px solid var(--border-dim); }
+.hub-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(–border-dim); }
+.hub-title { font-family: var(–serif); font-size: 28px; font-weight: 600; }
+.hub-title em { font-style: italic; color: var(–gold); }
+.hub-badge { font-family: var(–mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–teal); border: 1px solid rgba(42,190,170,0.3); padding: 6px 14px; }
+.hub-desc { font-size: 14px; color: var(–text-muted); line-height: 1.8; max-width: 600px; margin-bottom: 40px; }
+.agents-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(–border-dim); }
+.agents-col { background: var(–bg); display: flex; flex-direction: column; gap: 0; }
+.agents-col-header { font-family: var(–mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 20px; border-bottom: 1px solid var(–border-dim); }
 .col-mql5 .agents-col-header { color: #AFA9EC; }
 .col-ib .agents-col-header { color: #EF9F27; }
-.agent-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border-dim); transition: background 0.2s; }
+.agent-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(–border-dim); transition: background 0.2s; }
 .agent-item:last-child { border-bottom: none; }
-.agent-item:hover { background: var(--bg2); }
+.agent-item:hover { background: var(–bg2); }
 .agent-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
 .dot-purple { background: #7F77DD; }
 .dot-amber { background: #EF9F27; }
-.agent-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-.agent-task { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.agent-name { font-family: var(–mono); font-size: 12px; font-weight: 500; color: var(–text); margin-bottom: 3px; }
+.agent-task { font-size: 12px; color: var(–text-muted); line-height: 1.6; }
 
 /* PRODUCT SPOTLIGHT */
-.product { border-top: 1px solid var(--border-dim); }
+.product { border-top: 1px solid var(–border-dim); }
 .product-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
-.product-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); padding: 6px 14px; margin-bottom: 24px; }
-.product-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-.product-name { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 600; line-height: 1; margin-bottom: 8px; }
-.product-name span { color: var(--gold); font-style: italic; }
-.product-version { font-family: var(--mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 28px; }
-.product-desc { font-size: 14px; color: var(--text-muted); line-height: 1.9; margin-bottom: 36px; }
-.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border-dim); border: 1px solid var(--border-dim); }
-.stat { background: var(--bg2); padding: 24px; }
-.stat-value { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--gold); line-height: 1; margin-bottom: 6px; }
-.stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; }
+.product-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(–mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–gold); border: 1px solid var(–border); padding: 6px 14px; margin-bottom: 24px; }
+.product-badge::before { content: ‘’; width: 6px; height: 6px; background: var(–gold); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+.product-name { font-family: var(–serif); font-size: clamp(36px, 4vw, 56px); font-weight: 600; line-height: 1; margin-bottom: 8px; }
+.product-name span { color: var(–gold); font-style: italic; }
+.product-version { font-family: var(–mono); font-size: 11px; color: var(–text-muted); letter-spacing: 0.15em; margin-bottom: 28px; }
+.product-desc { font-size: 14px; color: var(–text-muted); line-height: 1.9; margin-bottom: 36px; }
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(–border-dim); border: 1px solid var(–border-dim); }
+.stat { background: var(–bg2); padding: 24px; }
+.stat-value { font-family: var(–mono); font-size: 28px; font-weight: 500; color: var(–gold); line-height: 1; margin-bottom: 6px; }
+.stat-label { font-size: 11px; color: var(–text-muted); letter-spacing: 0.05em; }
 
 /* TERMINAL */
-.terminal { background: var(--bg2); border: 1px solid var(--border-dim); font-family: var(--mono); font-size: 12px; line-height: 1.8; overflow: hidden; }
-.terminal-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-dim); background: var(--bg3); }
+.terminal { background: var(–bg2); border: 1px solid var(–border-dim); font-family: var(–mono); font-size: 12px; line-height: 1.8; overflow: hidden; }
+.terminal-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(–border-dim); background: var(–bg3); }
 .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
 .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FEBC2E; }
 .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
-.terminal-title { font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; margin-left: 8px; }
+.terminal-title { font-size: 10px; color: var(–text-muted); letter-spacing: 0.1em; margin-left: 8px; }
 .terminal-body { padding: 20px; }
-.t-dim { color: var(--text-dim); } .t-gold { color: var(--gold); } .t-green { color: var(--green); } .t-red { color: var(--red); } .t-blue { color: #6BA3D6; } .t-muted { color: var(--text-muted); } .t-line { display: block; }
+.t-dim { color: var(–text-dim); } .t-gold { color: var(–gold); } .t-green { color: var(–green); } .t-red { color: var(–red); } .t-blue { color: #6BA3D6; } .t-muted { color: var(–text-muted); } .t-line { display: block; }
 .blink { animation: blink 1.2s step-end infinite; }
 
 /* IB SECTION */
-.ib-section { background: var(--bg2); border-top: 1px solid var(--border-dim); }
+.ib-section { background: var(–bg2); border-top: 1px solid var(–border-dim); }
 .ib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start; }
 .ib-steps { display: flex; flex-direction: column; gap: 0; }
-.ib-step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border-dim); }
+.ib-step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(–border-dim); }
 .ib-step:first-child { padding-top: 0; }
-.step-num { font-family: var(--mono); font-size: 10px; color: var(--gold-dim); letter-spacing: 0.1em; min-width: 24px; margin-top: 2px; }
-.step-content h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-.step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
-.calc-box { background: var(--bg3); border: 1px solid var(--border-dim); padding: 32px; }
-.calc-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
+.step-num { font-family: var(–mono); font-size: 10px; color: var(–gold-dim); letter-spacing: 0.1em; min-width: 24px; margin-top: 2px; }
+.step-content h4 { font-family: var(–serif); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.step-content p { font-size: 13px; color: var(–text-muted); line-height: 1.8; }
+.calc-box { background: var(–bg3); border: 1px solid var(–border-dim); padding: 32px; }
+.calc-title { font-family: var(–mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–text-muted); margin-bottom: 24px; }
 .calc-field { margin-bottom: 20px; }
-.calc-field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; }
-.calc-field input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; }
-.val-display { font-family: var(--mono); font-size: 18px; color: var(--text); font-weight: 500; margin-top: 4px; }
-.calc-divider { height: 1px; background: var(--border-dim); margin: 24px 0; }
-.calc-result { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-dim); }
-.calc-result-item { background: var(--bg2); padding: 16px; }
-.calc-result-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
-.calc-result-val { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--gold); }
+.calc-field label { display: block; font-family: var(–mono); font-size: 10px; letter-spacing: 0.1em; color: var(–text-muted); margin-bottom: 8px; text-transform: uppercase; }
+.calc-field input[type=range] { width: 100%; accent-color: var(–gold); cursor: pointer; }
+.val-display { font-family: var(–mono); font-size: 18px; color: var(–text); font-weight: 500; margin-top: 4px; }
+.calc-divider { height: 1px; background: var(–border-dim); margin: 24px 0; }
+.calc-result { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(–border-dim); }
+.calc-result-item { background: var(–bg2); padding: 16px; }
+.calc-result-label { font-family: var(–mono); font-size: 9px; letter-spacing: 0.1em; color: var(–text-muted); text-transform: uppercase; margin-bottom: 4px; }
+.calc-result-val { font-family: var(–mono); font-size: 22px; font-weight: 500; color: var(–gold); }
 
 /* WAITLIST */
-.waitlist-section { border-top: 1px solid var(--border-dim); text-align: center; position: relative; overflow: hidden; }
+.waitlist-section { border-top: 1px solid var(–border-dim); text-align: center; position: relative; overflow: hidden; }
 .waitlist-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,162,39,0.06) 0%, transparent 70%); pointer-events: none; }
 .waitlist-inner { max-width: 600px; margin: 0 auto; }
-.countdown { display: flex; justify-content: center; gap: 0; margin: 48px 0; background: var(--border-dim); }
-.cd-unit { background: var(--bg2); padding: 20px 28px; text-align: center; flex: 1; border-right: 1px solid var(--border-dim); }
+.countdown { display: flex; justify-content: center; gap: 0; margin: 48px 0; background: var(–border-dim); }
+.cd-unit { background: var(–bg2); padding: 20px 28px; text-align: center; flex: 1; border-right: 1px solid var(–border-dim); }
 .cd-unit:last-child { border-right: none; }
-.cd-num { font-family: var(--mono); font-size: 36px; font-weight: 500; color: var(--gold); line-height: 1; display: block; }
-.cd-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; display: block; }
+.cd-num { font-family: var(–mono); font-size: 36px; font-weight: 500; color: var(–gold); line-height: 1; display: block; }
+.cd-label { font-family: var(–mono); font-size: 9px; letter-spacing: 0.15em; color: var(–text-muted); text-transform: uppercase; margin-top: 4px; display: block; }
 .wl-form { display: flex; gap: 0; margin-top: 32px; }
-.wl-form input[type=email] { flex: 1; background: var(--bg2); border: 1px solid var(--border-dim); border-right: none; padding: 14px 20px; font-family: var(--mono); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.2s; }
-.wl-form input[type=email]:focus { border-color: var(--gold); }
-.wl-form input[type=email]::placeholder { color: var(--text-dim); }
-.wl-form button { padding: 14px 28px; background: var(--gold); border: none; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #08080C; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-.wl-form button:hover { background: var(--gold-light); }
-.wl-success { display: none; background: rgba(76,175,122,0.1); border: 1px solid rgba(76,175,122,0.2); padding: 16px 24px; font-family: var(--mono); font-size: 12px; color: var(--green); margin-top: 16px; text-align: left; }
-.wl-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 14px; letter-spacing: 0.06em; }
-.wl-count strong { color: var(--gold); }
+.wl-form input[type=email] { flex: 1; background: var(–bg2); border: 1px solid var(–border-dim); border-right: none; padding: 14px 20px; font-family: var(–mono); font-size: 12px; color: var(–text); outline: none; transition: border-color 0.2s; }
+.wl-form input[type=email]:focus { border-color: var(–gold); }
+.wl-form input[type=email]::placeholder { color: var(–text-dim); }
+.wl-form button { padding: 14px 28px; background: var(–gold); border: none; font-family: var(–mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #08080C; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.wl-form button:hover { background: var(–gold-light); }
+.wl-success { display: none; background: rgba(76,175,122,0.1); border: 1px solid rgba(76,175,122,0.2); padding: 16px 24px; font-family: var(–mono); font-size: 12px; color: var(–green); margin-top: 16px; text-align: left; }
+.wl-count { font-family: var(–mono); font-size: 11px; color: var(–text-muted); margin-top: 14px; letter-spacing: 0.06em; }
+.wl-count strong { color: var(–gold); }
 
 /* WHY */
-.why { border-top: 1px solid var(--border-dim); }
-.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; background: var(--border-dim); border: 1px solid var(--border-dim); }
-.why-item { background: var(--bg2); padding: 36px 32px; transition: background 0.3s; }
-.why-item:hover { background: var(--bg3); }
-.why-num { font-family: var(--mono); font-size: 11px; color: var(--gold-dim); margin-bottom: 16px; letter-spacing: 0.1em; }
-.why-title { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-.why-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+.why { border-top: 1px solid var(–border-dim); }
+.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; background: var(–border-dim); border: 1px solid var(–border-dim); }
+.why-item { background: var(–bg2); padding: 36px 32px; transition: background 0.3s; }
+.why-item:hover { background: var(–bg3); }
+.why-num { font-family: var(–mono); font-size: 11px; color: var(–gold-dim); margin-bottom: 16px; letter-spacing: 0.1em; }
+.why-title { font-family: var(–serif); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+.why-desc { font-size: 13px; color: var(–text-muted); line-height: 1.8; }
 
 /* CTA */
-.cta-section { text-align: center; border-top: 1px solid var(--border-dim); position: relative; overflow: hidden; }
+.cta-section { text-align: center; border-top: 1px solid var(–border-dim); position: relative; overflow: hidden; }
 .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,162,39,0.06) 0%, transparent 70%); pointer-events: none; }
 .cta-section .hero-cta { justify-content: center; }
-.coming-soon { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 32px; }
-.coming-soon::before, .coming-soon::after { content: ''; flex: 1; height: 1px; width: 40px; background: var(--border-dim); }
+.coming-soon { display: inline-flex; align-items: center; gap: 8px; font-family: var(–mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–text-muted); margin-top: 32px; }
+.coming-soon::before, .coming-soon::after { content: ‘’; flex: 1; height: 1px; width: 40px; background: var(–border-dim); }
+
+/* MQL5 LOGIN */
+.btn-mql5 { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: transparent; color: var(–text-muted); font-family: var(–mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(–border-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
+.btn-mql5:hover { color: var(–gold); border-color: var(–border); }
+.btn-mql5.logged-in { color: var(–green); border-color: rgba(76,175,122,0.3); background: rgba(76,175,122,0.06); }
+.mql5-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–text-dim); flex-shrink: 0; }
+.btn-mql5.logged-in .mql5-dot { background: var(–green); animation: pulse 2s ease-in-out infinite; }
+.member-panel { display: none; position: relative; z-index: 1; background: var(–bg2); border-bottom: 1px solid var(–border-dim); }
+.member-panel.active { display: block; }
+.member-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; }
+.member-welcome { display: flex; align-items: center; gap: 16px; }
+.member-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(76,175,122,0.3); background: var(–bg3); display: flex; align-items: center; justify-content: center; font-family: var(–mono); font-size: 13px; font-weight: 500; color: var(–green); }
+.member-name { font-family: var(–mono); font-size: 12px; font-weight: 500; color: var(–text); }
+.member-status { font-family: var(–mono); font-size: 10px; color: var(–green); letter-spacing: 0.1em; margin-top: 2px; }
+.member-tag { font-family: var(–mono); font-size: 10px; letter-spacing: 0.1em; padding: 4px 12px; border: 1px solid var(–border-dim); color: var(–text-muted); }
+.member-tag.gold { border-color: rgba(201,162,39,0.3); color: var(–gold); background: rgba(201,162,39,0.06); }
+.member-logout { font-family: var(–mono); font-size: 10px; color: var(–text-dim); cursor: pointer; background: none; border: none; letter-spacing: 0.1em; transition: color 0.2s; }
+.member-logout:hover { color: var(–red); }
+.oauth-overlay { display: none; position: fixed; inset: 0; background: rgba(8,8,12,0.96); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
+.oauth-overlay.active { display: flex; }
+.oauth-spinner { width: 28px; height: 28px; border: 2px solid var(–border-dim); border-top-color: var(–gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.oauth-msg { font-family: var(–mono); font-size: 12px; color: var(–text-muted); letter-spacing: 0.1em; }
 
 /* FOOTER */
-footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px solid var(--border-dim); display: flex; align-items: center; justify-content: space-between; }
-.footer-brand { font-family: var(--mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.1em; }
-.footer-brand strong { color: var(--gold); font-weight: 500; }
+footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px solid var(–border-dim); display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: var(–mono); font-size: 12px; color: var(–text-muted); letter-spacing: 0.1em; }
+.footer-brand strong { color: var(–gold); font-weight: 500; }
 .footer-links { display: flex; gap: 24px; list-style: none; }
-.footer-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--gold); }
+.footer-links a { font-family: var(–mono); font-size: 11px; letter-spacing: 0.08em; color: var(–text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(–gold); }
 
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -228,25 +252,27 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  nav { padding: 16px 24px; } .nav-links, .nav-live { display: none; }
-  .hero { padding: 100px 24px 60px; }
-  section { padding: 72px 24px; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .pillar { border-right: none; border-bottom: 1px solid var(--border-dim); }
-  .pillar:last-child { border-bottom: none; }
-  .product-inner, .ib-grid { grid-template-columns: 1fr; gap: 40px; }
-  .why-grid, .agents-grid { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
-  .hero-bg-text { display: none; }
-  .wl-form { flex-direction: column; }
-  .wl-form input[type=email] { border-right: 1px solid var(--border-dim); }
-  .countdown { gap: 0; } .cd-unit { padding: 14px; } .cd-num { font-size: 28px; }
+nav { padding: 16px 24px; } .nav-links, .nav-live { display: none; }
+.hero { padding: 100px 24px 60px; }
+section { padding: 72px 24px; }
+.pillars-grid { grid-template-columns: 1fr; }
+.pillar { border-right: none; border-bottom: 1px solid var(–border-dim); }
+.pillar:last-child { border-bottom: none; }
+.product-inner, .ib-grid { grid-template-columns: 1fr; gap: 40px; }
+.why-grid, .agents-grid { grid-template-columns: 1fr; }
+footer { flex-direction: column; gap: 16px; text-align: center; }
+.hero-bg-text { display: none; }
+.wl-form { flex-direction: column; }
+.wl-form input[type=email] { border-right: 1px solid var(–border-dim); }
+.countdown { gap: 0; } .cd-unit { padding: 14px; } .cd-num { font-size: 28px; }
 }
 </style>
+
 </head>
 <body>
 
 <!-- NAV -->
+
 <nav>
   <a href="#" class="nav-logo">QA</a>
   <ul class="nav-links">
@@ -256,15 +282,48 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
     <li><a href="#waitlist">Waitlist</a></li>
     <li><a href="https://t.me/QuadrantArtifacts" target="_blank">Telegram ↗</a></li>
   </ul>
-  <div class="nav-live">
-    <span class="live-dot"></span>
-    <span style="color:var(--text-muted)">XAU/USD</span>
-    <span id="nav-price" style="font-family:var(--mono);font-weight:500">—</span>
-    <span class="price-change" id="nav-change">—</span>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="nav-live">
+      <span class="live-dot"></span>
+      <span style="color:var(--text-muted)">XAU/USD</span>
+      <span id="nav-price" style="font-family:var(--mono);font-weight:500">—</span>
+      <span class="price-change" id="nav-change">—</span>
+    </div>
+    <button class="btn-mql5" id="mql5-login-btn" onclick="mql5Login()">
+      <span class="mql5-dot"></span>
+      <span id="login-label">Login MQL5</span>
+    </button>
   </div>
 </nav>
 
+<!-- MEMBER PANEL -->
+
+<div class="member-panel" id="member-panel">
+  <div class="member-inner">
+    <div class="member-welcome">
+      <div class="member-avatar" id="member-avatar">?</div>
+      <div>
+        <div class="member-name" id="member-name">—</div>
+        <div class="member-status" id="member-status">● Connected via MQL5</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="member-tag" id="member-rank">—</span>
+      <span class="member-tag gold">Quadrant Member</span>
+      <button class="member-logout" onclick="mql5Logout()">Logout ×</button>
+    </div>
+  </div>
+</div>
+
+<!-- OAUTH OVERLAY -->
+
+<div class="oauth-overlay" id="oauth-overlay">
+  <div class="oauth-spinner"></div>
+  <div class="oauth-msg" id="oauth-msg">Menghubungkan ke MQL5...</div>
+</div>
+
 <!-- HERO -->
+
 <section class="hero">
   <div class="hero-label">Quadrant Artifacts · Est. 2025 · quadrantartifacts.com</div>
   <h1 class="hero-title">Precision<br><em>Trading</em><br>Tools.</h1>
@@ -284,6 +343,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <div class="divider"></div>
 
 <!-- PILLARS -->
+
 <section class="pillars" id="products">
   <div class="section-label reveal">/ Apa yang kami bangun</div>
   <h2 class="section-title reveal">Tiga fondasi,<br>satu ekosistem.</h2>
@@ -325,6 +385,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <div class="divider"></div>
 
 <!-- QUADRANT HUB ECOSYSTEM -->
+
 <section class="ecosystem" id="ecosystem">
   <div class="section-label reveal">/ Internal Infrastructure</div>
   <h2 class="section-title reveal">Quadrant <em style="font-style:italic;color:var(--gold)">Hub.</em></h2>
@@ -341,63 +402,67 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
       hingga tracking rebate client IB secara otomatis.
     </p>
 
-    <div class="agents-grid">
-      <div class="agents-col col-mql5">
-        <div class="agents-col-header">MQL5 Dev Agents</div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">EA Dev Agent</div>
-            <div class="agent-task">Backtest monitoring, version control, EA packaging untuk marketplace</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">Publish Agent</div>
-            <div class="agent-task">Draft deskripsi produk MQL5, balas review buyer, update changelog</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">Content Agent</div>
-            <div class="agent-task">Generate konten Telegram, Binance Square, dan MQL5 articles otomatis</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="agents-col col-ib">
-        <div class="agents-col-header">IB Broker Agents</div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Onboard Agent</div>
-            <div class="agent-task">Client intake, kirim link broker, panduan setup akun, KYC assist</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Rebate Agent</div>
-            <div class="agent-task">Hitung rebate per lot, generate laporan volume bulanan per client</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Monitor Agent</div>
-            <div class="agent-task">Deteksi client tidak aktif, trigger retention message, alert volume drop</div>
-          </div>
-        </div>
+```
+<div class="agents-grid">
+  <div class="agents-col col-mql5">
+    <div class="agents-col-header">MQL5 Dev Agents</div>
+    <div class="agent-item">
+      <div class="agent-dot dot-purple"></div>
+      <div>
+        <div class="agent-name">EA Dev Agent</div>
+        <div class="agent-task">Backtest monitoring, version control, EA packaging untuk marketplace</div>
       </div>
     </div>
+    <div class="agent-item">
+      <div class="agent-dot dot-purple"></div>
+      <div>
+        <div class="agent-name">Publish Agent</div>
+        <div class="agent-task">Draft deskripsi produk MQL5, balas review buyer, update changelog</div>
+      </div>
+    </div>
+    <div class="agent-item">
+      <div class="agent-dot dot-purple"></div>
+      <div>
+        <div class="agent-name">Content Agent</div>
+        <div class="agent-task">Generate konten Telegram, Binance Square, dan MQL5 articles otomatis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="agents-col col-ib">
+    <div class="agents-col-header">IB Broker Agents</div>
+    <div class="agent-item">
+      <div class="agent-dot dot-amber"></div>
+      <div>
+        <div class="agent-name">Onboard Agent</div>
+        <div class="agent-task">Client intake, kirim link broker, panduan setup akun, KYC assist</div>
+      </div>
+    </div>
+    <div class="agent-item">
+      <div class="agent-dot dot-amber"></div>
+      <div>
+        <div class="agent-name">Rebate Agent</div>
+        <div class="agent-task">Hitung rebate per lot, generate laporan volume bulanan per client</div>
+      </div>
+    </div>
+    <div class="agent-item">
+      <div class="agent-dot dot-amber"></div>
+      <div>
+        <div class="agent-name">Monitor Agent</div>
+        <div class="agent-task">Deteksi client tidak aktif, trigger retention message, alert volume drop</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
   </div>
 </section>
 
 <div class="divider"></div>
 
 <!-- PRODUCT SPOTLIGHT -->
+
 <section class="product">
   <div class="section-label reveal">/ Flagship Product</div>
   <div class="product-inner">
@@ -445,6 +510,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <div class="divider"></div>
 
 <!-- IB SECTION -->
+
 <section class="ib-section" id="ib">
   <div class="section-label reveal">/ IB Broker Program</div>
   <h2 class="section-title reveal">Trade smarter.<br><em style="font-style:italic;color:var(--gold);font-family:var(--serif)">Earn together.</em></h2>
@@ -458,9 +524,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
       </div>
       <div class="ib-step">
         <div class="step-num">02</div>
-        <div class="step-content"><h4>Buka Akun via Link IB
-          Kode Mitra : v2t505lr0g
-        </h4><p>Daftar Exness melalui link referral kami. Pilih akun Standard atau Pro dengan Hedge enabled. <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" style="color:var(--gold);text-decoration:none;font-family:var(--mono);font-size:11px">Daftar sekarang ↗</a></p></div>
+        <div class="step-content"><h4>Buka Akun via Link IB</h4><p>Daftar Exness melalui link referral kami. Pilih akun Standard atau Pro dengan Hedge enabled. <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" style="color:var(--gold);text-decoration:none;font-family:var(--mono);font-size:11px">Daftar sekarang ↗</a></p></div>
       </div>
       <div class="ib-step">
         <div class="step-num">03</div>
@@ -472,38 +536,42 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
       </div>
     </div>
 
-    <div class="calc-box reveal">
-      <div class="calc-title">⬡ Rebate Calculator</div>
-      <div class="calc-field">
-        <label>Lot per hari</label>
-        <div class="val-display" id="lots-display">5 lot</div>
-        <input type="range" min="1" max="50" value="5" id="lots-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-field">
-        <label>Hari trading per bulan</label>
-        <div class="val-display" id="days-display">20 hari</div>
-        <input type="range" min="5" max="30" value="20" id="days-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-field">
-        <label>Rebate per lot (estimasi)</label>
-        <div class="val-display" id="rebate-display">$3.00 / lot</div>
-        <input type="range" min="1" max="8" value="3" step="0.5" id="rebate-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-divider"></div>
-      <div class="calc-result">
-        <div class="calc-result-item"><div class="calc-result-label">Per Bulan</div><div class="calc-result-val" id="monthly-rebate">$300</div></div>
-        <div class="calc-result-item"><div class="calc-result-label">Per Tahun</div><div class="calc-result-val" id="yearly-rebate">$3,600</div></div>
-      </div>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.7">* Estimasi berdasarkan rebate rata-rata broker ECN. Hubungi kami untuk detail.</p>
-      <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" class="btn-primary" style="width:100%;justify-content:center;margin-top:20px;font-size:11px">Buka Akun Exness via IB ↗</a>
-      <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-outline" style="width:100%;justify-content:center;margin-top:8px;font-size:11px">Konsultasi via Telegram</a>
-    </div>
+```
+<div class="calc-box reveal">
+  <div class="calc-title">⬡ Rebate Calculator</div>
+  <div class="calc-field">
+    <label>Lot per hari</label>
+    <div class="val-display" id="lots-display">5 lot</div>
+    <input type="range" min="1" max="50" value="5" id="lots-slider" oninput="calcRebate()">
+  </div>
+  <div class="calc-field">
+    <label>Hari trading per bulan</label>
+    <div class="val-display" id="days-display">20 hari</div>
+    <input type="range" min="5" max="30" value="20" id="days-slider" oninput="calcRebate()">
+  </div>
+  <div class="calc-field">
+    <label>Rebate per lot (estimasi)</label>
+    <div class="val-display" id="rebate-display">$3.00 / lot</div>
+    <input type="range" min="1" max="8" value="3" step="0.5" id="rebate-slider" oninput="calcRebate()">
+  </div>
+  <div class="calc-divider"></div>
+  <div class="calc-result">
+    <div class="calc-result-item"><div class="calc-result-label">Per Bulan</div><div class="calc-result-val" id="monthly-rebate">$300</div></div>
+    <div class="calc-result-item"><div class="calc-result-label">Per Tahun</div><div class="calc-result-val" id="yearly-rebate">$3,600</div></div>
+  </div>
+  <p style="font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.7">* Estimasi berdasarkan rebate rata-rata broker ECN. Hubungi kami untuk detail.</p>
+  <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" class="btn-primary" style="width:100%;justify-content:center;margin-top:20px;font-size:11px">Buka Akun Exness via IB ↗</a>
+  <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-outline" style="width:100%;justify-content:center;margin-top:8px;font-size:11px">Konsultasi via Telegram</a>
+</div>
+```
+
   </div>
 </section>
 
 <div class="divider"></div>
 
 <!-- WAITLIST -->
+
 <section class="waitlist-section" id="waitlist">
   <div class="waitlist-glow"></div>
   <div class="waitlist-inner">
@@ -528,6 +596,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <div class="divider"></div>
 
 <!-- WHY -->
+
 <section class="why" id="about">
   <div class="section-label reveal">/ Filosofi</div>
   <h2 class="section-title reveal">Kualitas<br>di atas kuantitas.</h2>
@@ -542,6 +611,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <div class="divider"></div>
 
 <!-- CTA -->
+
 <section class="cta-section">
   <div class="cta-glow"></div>
   <div class="section-label reveal" style="text-align:center">/ Mulai sekarang</div>
@@ -555,6 +625,7 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 </section>
 
 <!-- FOOTER -->
+
 <footer>
   <div class="footer-brand"><strong>Quadrant Artifacts</strong> · quadrantartifacts.com</div>
   <ul class="footer-links">
@@ -673,5 +744,6 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+
 </body>
 </html>
