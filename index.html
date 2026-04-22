@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Quadrant Artifacts — MQL5 Expert Advisor Developer & IB Broker. Dikelola oleh Quadrant Hub AI management system.">
+<meta name="description" content="Quadrant Artifacts — MQL5 Expert Advisor Developer & IB Broker. Precision trading tools berbasis metodologi multi-timeframe untuk XAUUSD.">
 <title>Quadrant Artifacts — Precision Trading Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -20,250 +20,616 @@
   --text-dim: #3A3840;
   --border: rgba(201,162,39,0.15);
   --border-dim: rgba(255,255,255,0.06);
-  --green: #4CAF7A;
-  --red: #E05252;
-  --teal: #2ABEAA;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --mono: 'IBM Plex Mono', monospace;
   --sans: 'IBM Plex Sans', sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grid texture */
 body::before {
   content: '';
-  position: fixed; inset: 0;
-  background-image: linear-gradient(rgba(201,162,39,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,162,39,0.03) 1px, transparent 1px);
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,162,39,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,162,39,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
-  pointer-events: none; z-index: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* NAV */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 20px 48px;
   border-bottom: 1px solid var(--border-dim);
   background: rgba(8,8,12,0.85);
   backdrop-filter: blur(12px);
 }
-.nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
-.nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
 .nav-links a:hover { color: var(--gold); }
-.nav-live { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; }
-.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
-.price-change { font-size: 10px; padding: 2px 6px; border-radius: 2px; }
-.up { background: rgba(76,175,122,0.15); color: var(--green); }
-.down { background: rgba(224,82,82,0.15); color: var(--red); }
 
 /* HERO */
 .hero {
-  position: relative; min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 48px 80px; z-index: 1; overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  z-index: 1;
+  overflow: hidden;
 }
-.hero-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
-.hero-label::before { content: '▸ '; opacity: 0.6; }
-.hero-title { font-family: var(--serif); font-size: clamp(56px, 9vw, 120px); font-weight: 600; line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards; }
-.hero-title em { font-style: italic; color: var(--gold); }
-.hero-sub { font-family: var(--serif); font-size: clamp(22px, 3vw, 40px); font-weight: 400; font-style: italic; color: var(--text-muted); margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
-.hero-desc { max-width: 520px; font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards; }
-.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
-.hero-bg-text { position: absolute; right: -40px; bottom: -20px; font-family: var(--serif); font-size: 280px; font-weight: 600; color: rgba(201,162,39,0.03); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
 
-/* BUTTONS */
-.btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--gold); color: #08080C; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: transparent; color: var(--text-muted); font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s, transform 0.15s; }
-.btn-outline:hover { color: var(--gold); border-color: var(--border); transform: translateY(-1px); }
+.hero-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
 
-/* DIVIDER */
-.divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.3; }
+.hero-label::before {
+  content: '▸ ';
+  opacity: 0.6;
+}
 
-/* SECTIONS */
-section { position: relative; z-index: 1; padding: 100px 48px; }
-.section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; opacity: 0.8; }
-.section-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 52px); font-weight: 600; line-height: 1.1; margin-bottom: 16px; }
-.section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; line-height: 1.8; }
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.35s forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.5s forwards;
+}
+
+.hero-desc {
+  max-width: 520px;
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.65s forwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: #08080C;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border-dim);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.btn-outline:hover {
+  color: var(--gold);
+  border-color: var(--border);
+  transform: translateY(-1px);
+}
+
+/* Large decorative text */
+.hero-bg-text {
+  position: absolute;
+  right: -40px;
+  bottom: -20px;
+  font-family: var(--serif);
+  font-size: 280px;
+  font-weight: 600;
+  color: rgba(201,162,39,0.03);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+/* Gold divider line */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+  margin: 0;
+}
+
+/* SECTION BASE */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 48px;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.8;
+}
 
 /* PILLARS */
-.pillars { background: var(--bg2); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); }
-.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 64px; }
-.pillar { padding: 40px 36px; border-right: 1px solid var(--border-dim); transition: background 0.3s; }
+.pillars {
+  background: var(--bg2);
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 64px;
+}
+
+.pillar {
+  padding: 40px 36px;
+  border-right: 1px solid var(--border-dim);
+  transition: background 0.3s;
+}
+
 .pillar:last-child { border-right: none; }
 .pillar:hover { background: var(--bg3); }
-.pillar-number { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--gold-dim); margin-bottom: 20px; }
-.pillar-title { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 12px; }
-.pillar-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
-.pillar-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid var(--border-dim); color: var(--text-muted); }
 
-/* ECOSYSTEM — QUADRANT HUB */
-.ecosystem { border-top: 1px solid var(--border-dim); }
-.hub-box {
-  margin-top: 64px;
-  border: 1px solid var(--border);
-  background: var(--bg2);
-  padding: 40px;
+.pillar-number {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
 }
-.hub-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-dim); }
-.hub-title { font-family: var(--serif); font-size: 28px; font-weight: 600; }
-.hub-title em { font-style: italic; color: var(--gold); }
-.hub-badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(42,190,170,0.3); padding: 6px 14px; }
-.hub-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; max-width: 600px; margin-bottom: 40px; }
-.agents-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-dim); }
-.agents-col { background: var(--bg); display: flex; flex-direction: column; gap: 0; }
-.agents-col-header { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 20px; border-bottom: 1px solid var(--border-dim); }
-.col-mql5 .agents-col-header { color: #AFA9EC; }
-.col-ib .agents-col-header { color: #EF9F27; }
-.agent-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border-dim); transition: background 0.2s; }
-.agent-item:last-child { border-bottom: none; }
-.agent-item:hover { background: var(--bg2); }
-.agent-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
-.dot-purple { background: #7F77DD; }
-.dot-amber { background: #EF9F27; }
-.agent-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-.agent-task { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+.pillar-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  filter: grayscale(0.3);
+}
+
+.pillar-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.pillar-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.pillar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--border-dim);
+  color: var(--text-muted);
+}
 
 /* PRODUCT SPOTLIGHT */
-.product { border-top: 1px solid var(--border-dim); }
-.product-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
-.product-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); padding: 6px 14px; margin-bottom: 24px; }
-.product-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-.product-name { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 600; line-height: 1; margin-bottom: 8px; }
+.product {
+  border-top: 1px solid var(--border-dim);
+}
+
+.product-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 64px;
+}
+
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  margin-bottom: 24px;
+}
+
+.product-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.product-name {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
 .product-name span { color: var(--gold); font-style: italic; }
-.product-version { font-family: var(--mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 28px; }
-.product-desc { font-size: 14px; color: var(--text-muted); line-height: 1.9; margin-bottom: 36px; }
-.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border-dim); border: 1px solid var(--border-dim); }
-.stat { background: var(--bg2); padding: 24px; }
-.stat-value { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--gold); line-height: 1; margin-bottom: 6px; }
-.stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; }
 
-/* TERMINAL */
-.terminal { background: var(--bg2); border: 1px solid var(--border-dim); font-family: var(--mono); font-size: 12px; line-height: 1.8; overflow: hidden; }
-.terminal-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-dim); background: var(--bg3); }
-.dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
-.dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FEBC2E; }
-.dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
-.terminal-title { font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; margin-left: 8px; }
+.product-version {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 28px;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin-bottom: 36px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-dim);
+  border: 1px solid var(--border-dim);
+}
+
+.stat {
+  background: var(--bg2);
+  padding: 24px;
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.terminal {
+  background: var(--bg2);
+  border: 1px solid var(--border-dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-dim);
+  background: var(--bg3);
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #FF5F57; }
+.dot-y { background: #FEBC2E; }
+.dot-g { background: #28C840; }
+
+.terminal-title {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-left: 8px;
+}
+
 .terminal-body { padding: 20px; }
-.t-dim { color: var(--text-dim); } .t-gold { color: var(--gold); } .t-green { color: var(--green); } .t-red { color: var(--red); } .t-blue { color: #6BA3D6; } .t-muted { color: var(--text-muted); } .t-line { display: block; }
-.blink { animation: blink 1.2s step-end infinite; }
 
-/* IB SECTION */
-.ib-section { background: var(--bg2); border-top: 1px solid var(--border-dim); }
-.ib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start; }
-.ib-steps { display: flex; flex-direction: column; gap: 0; }
-.ib-step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border-dim); }
-.ib-step:first-child { padding-top: 0; }
-.step-num { font-family: var(--mono); font-size: 10px; color: var(--gold-dim); letter-spacing: 0.1em; min-width: 24px; margin-top: 2px; }
-.step-content h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-.step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
-.calc-box { background: var(--bg3); border: 1px solid var(--border-dim); padding: 32px; }
-.calc-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
-.calc-field { margin-bottom: 20px; }
-.calc-field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; }
-.calc-field input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; }
-.val-display { font-family: var(--mono); font-size: 18px; color: var(--text); font-weight: 500; margin-top: 4px; }
-.calc-divider { height: 1px; background: var(--border-dim); margin: 24px 0; }
-.calc-result { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-dim); }
-.calc-result-item { background: var(--bg2); padding: 16px; }
-.calc-result-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
-.calc-result-val { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--gold); }
-
-/* WAITLIST */
-.waitlist-section { border-top: 1px solid var(--border-dim); text-align: center; position: relative; overflow: hidden; }
-.waitlist-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,162,39,0.06) 0%, transparent 70%); pointer-events: none; }
-.waitlist-inner { max-width: 600px; margin: 0 auto; }
-.countdown { display: flex; justify-content: center; gap: 0; margin: 48px 0; background: var(--border-dim); }
-.cd-unit { background: var(--bg2); padding: 20px 28px; text-align: center; flex: 1; border-right: 1px solid var(--border-dim); }
-.cd-unit:last-child { border-right: none; }
-.cd-num { font-family: var(--mono); font-size: 36px; font-weight: 500; color: var(--gold); line-height: 1; display: block; }
-.cd-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; display: block; }
-.wl-form { display: flex; gap: 0; margin-top: 32px; }
-.wl-form input[type=email] { flex: 1; background: var(--bg2); border: 1px solid var(--border-dim); border-right: none; padding: 14px 20px; font-family: var(--mono); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.2s; }
-.wl-form input[type=email]:focus { border-color: var(--gold); }
-.wl-form input[type=email]::placeholder { color: var(--text-dim); }
-.wl-form button { padding: 14px 28px; background: var(--gold); border: none; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #08080C; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-.wl-form button:hover { background: var(--gold-light); }
-.wl-success { display: none; background: rgba(76,175,122,0.1); border: 1px solid rgba(76,175,122,0.2); padding: 16px 24px; font-family: var(--mono); font-size: 12px; color: var(--green); margin-top: 16px; text-align: left; }
-.wl-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 14px; letter-spacing: 0.06em; }
-.wl-count strong { color: var(--gold); }
+.t-dim { color: var(--text-dim); }
+.t-gold { color: var(--gold); }
+.t-green { color: #4CAF7A; }
+.t-red { color: #E05252; }
+.t-blue { color: #6BA3D6; }
+.t-muted { color: var(--text-muted); }
+.t-line { display: block; }
 
 /* WHY */
-.why { border-top: 1px solid var(--border-dim); }
-.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; background: var(--border-dim); border: 1px solid var(--border-dim); }
-.why-item { background: var(--bg2); padding: 36px 32px; transition: background 0.3s; }
+.why {
+  background: var(--bg2);
+  border-top: 1px solid var(--border-dim);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+  background: var(--border-dim);
+  border: 1px solid var(--border-dim);
+}
+
+.why-item {
+  background: var(--bg2);
+  padding: 36px 32px;
+  transition: background 0.3s;
+}
+
 .why-item:hover { background: var(--bg3); }
-.why-num { font-family: var(--mono); font-size: 11px; color: var(--gold-dim); margin-bottom: 16px; letter-spacing: 0.1em; }
-.why-title { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-.why-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+
+.why-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+}
+
+.why-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.why-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
 
 /* CTA */
-.cta-section { text-align: center; border-top: 1px solid var(--border-dim); position: relative; overflow: hidden; }
-.cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,162,39,0.06) 0%, transparent 70%); pointer-events: none; }
-.cta-section .hero-cta { justify-content: center; }
-.coming-soon { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 32px; }
-.coming-soon::before, .coming-soon::after { content: ''; flex: 1; height: 1px; width: 40px; background: var(--border-dim); }
+.cta-section {
+  text-align: center;
+  border-top: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+}
 
-/* MQL5 LOGIN */
-.btn-mql5 { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: transparent; color: var(--text-muted); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
-.btn-mql5:hover { color: var(--gold); border-color: var(--border); }
-.btn-mql5.logged-in { color: var(--green); border-color: rgba(76,175,122,0.3); background: rgba(76,175,122,0.06); }
-.mql5-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; }
-.btn-mql5.logged-in .mql5-dot { background: var(--green); animation: pulse 2s ease-in-out infinite; }
-.member-panel { display: none; position: relative; z-index: 1; background: var(--bg2); border-bottom: 1px solid var(--border-dim); }
-.member-panel.active { display: block; }
-.member-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; }
-.member-welcome { display: flex; align-items: center; gap: 16px; }
-.member-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(76,175,122,0.3); background: var(--bg3); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--green); }
-.member-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); }
-.member-status { font-family: var(--mono); font-size: 10px; color: var(--green); letter-spacing: 0.1em; margin-top: 2px; }
-.member-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; padding: 4px 12px; border: 1px solid var(--border-dim); color: var(--text-muted); }
-.member-tag.gold { border-color: rgba(201,162,39,0.3); color: var(--gold); background: rgba(201,162,39,0.06); }
-.member-logout { font-family: var(--mono); font-size: 10px; color: var(--text-dim); cursor: pointer; background: none; border: none; letter-spacing: 0.1em; transition: color 0.2s; }
-.member-logout:hover { color: var(--red); }
-.oauth-overlay { display: none; position: fixed; inset: 0; background: rgba(8,8,12,0.96); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
-.oauth-overlay.active { display: flex; }
-.oauth-spinner { width: 28px; height: 28px; border: 2px solid var(--border-dim); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.oauth-msg { font-family: var(--mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.1em; }
+.cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(201,162,39,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section .section-title { margin: 0 auto 16px; }
+.cta-section .section-sub { margin: 0 auto 40px; text-align: center; }
+
+.cta-section .hero-cta { justify-content: center; }
+
+.coming-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 32px;
+}
+
+.coming-soon::before, .coming-soon::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  width: 40px;
+  background: var(--border-dim);
+}
 
 /* FOOTER */
-footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px solid var(--border-dim); display: flex; align-items: center; justify-content: space-between; }
-.footer-brand { font-family: var(--mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.1em; }
-.footer-brand strong { color: var(--gold); font-weight: 500; }
-.footer-links { display: flex; gap: 24px; list-style: none; }
-.footer-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 32px 48px;
+  border-top: 1px solid var(--border-dim);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.footer-brand strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
 .footer-links a:hover { color: var(--gold); }
 
 /* ANIMATIONS */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-/* REVEAL */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  nav { padding: 16px 24px; } .nav-links, .nav-live { display: none; }
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
   .hero { padding: 100px 24px 60px; }
   section { padding: 72px 24px; }
   .pillars-grid { grid-template-columns: 1fr; }
   .pillar { border-right: none; border-bottom: 1px solid var(--border-dim); }
   .pillar:last-child { border-bottom: none; }
-  .product-inner, .ib-grid { grid-template-columns: 1fr; gap: 40px; }
-  .why-grid, .agents-grid { grid-template-columns: 1fr; }
+  .product-inner { grid-template-columns: 1fr; gap: 40px; }
+  .why-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 16px; text-align: center; }
   .hero-bg-text { display: none; }
-  .wl-form { flex-direction: column; }
-  .wl-form input[type=email] { border-right: 1px solid var(--border-dim); }
-  .countdown { gap: 0; } .cd-unit { padding: 14px; } .cd-num { font-size: 28px; }
 }
 </style>
 </head>
@@ -273,63 +639,30 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <nav>
   <a href="#" class="nav-logo">QA</a>
   <ul class="nav-links">
-    <li><a href="#ecosystem">Ecosystem</a></li>
     <li><a href="#products">Products</a></li>
-    <li><a href="#ib">IB Program</a></li>
-    <li><a href="#waitlist">Waitlist</a></li>
+    <li><a href="#ib">IB Broker</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="https://t.me/QuadrantArtifacts" target="_blank">Telegram ↗</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:12px">
-    <div class="nav-live">
-      <span class="live-dot"></span>
-      <span style="color:var(--text-muted)">XAU/USD</span>
-      <span id="nav-price" style="font-family:var(--mono);font-weight:500">—</span>
-      <span class="price-change" id="nav-change">—</span>
-    </div>
-    <button class="btn-mql5" id="mql5-login-btn" onclick="mql5Login()">
-      <span class="mql5-dot"></span>
-      <span id="login-label">Login MQL5</span>
-    </button>
-  </div>
 </nav>
-
-<!-- MEMBER PANEL -->
-<div class="member-panel" id="member-panel">
-  <div class="member-inner">
-    <div class="member-welcome">
-      <div class="member-avatar" id="member-avatar">?</div>
-      <div>
-        <div class="member-name" id="member-name">—</div>
-        <div class="member-status" id="member-status">● Connected via MQL5</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span class="member-tag" id="member-rank">—</span>
-      <span class="member-tag gold">Quadrant Member</span>
-      <button class="member-logout" onclick="mql5Logout()">Logout ×</button>
-    </div>
-  </div>
-</div>
-
-<!-- OAUTH OVERLAY -->
-<div class="oauth-overlay" id="oauth-overlay">
-  <div class="oauth-spinner"></div>
-  <div class="oauth-msg" id="oauth-msg">Menghubungkan ke MQL5...</div>
-</div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-label">Quadrant Artifacts · Est. 2025 · quadrantartifacts.com</div>
+  <div class="hero-label">Quadrant Artifacts · Est. 2025</div>
   <h1 class="hero-title">Precision<br><em>Trading</em><br>Tools.</h1>
   <p class="hero-sub">Built for serious traders.</p>
   <p class="hero-desc">
-    MQL5 Expert Advisor developer dan IB Broker partner — dikelola oleh
-    <strong style="color:var(--gold);font-weight:400">Quadrant Hub</strong>,
-    sistem AI management internal kami untuk operasional yang disiplin dan terukur.
+    Expert Advisor developer untuk MetaTrader 5 dan IB Broker partner.
+    Kami merancang sistem trading berbasis analisis multi-timeframe
+    yang disiplin, terukur, dan konsisten.
   </p>
   <div class="hero-cta">
-    <a href="#waitlist" class="btn-primary">Join Waitlist ↓</a>
-    <a href="#ecosystem" class="btn-outline">Lihat Ecosystem</a>
+    <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-primary">
+      Join Channel ↗
+    </a>
+    <a href="#products" class="btn-outline">
+      Lihat Produk
+    </a>
   </div>
   <div class="hero-bg-text">QA</div>
 </section>
@@ -338,14 +671,16 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 
 <!-- PILLARS -->
 <section class="pillars" id="products">
-  <div class="section-label reveal">/ Apa yang kami bangun</div>
+  <div class="section-label">/ Apa yang kami bangun</div>
   <h2 class="section-title reveal">Tiga fondasi,<br>satu ekosistem.</h2>
+  <p class="section-sub reveal">Setiap produk dirancang untuk saling memperkuat — dari tools hingga komunitas trader.</p>
 
   <div class="pillars-grid">
     <div class="pillar reveal">
       <div class="pillar-number">01 / MQL5 Development</div>
+      <div class="pillar-icon">⬡</div>
       <h3 class="pillar-title">Expert Advisors</h3>
-      <p class="pillar-desc">EA berbasis logika multi-timeframe H1→M15→M5. Bukan martingale. Bukan grid. Struktur entry terukur dengan break-even management otomatis.</p>
+      <p class="pillar-desc">EA berbasis logika multi-timeframe H1→M15→M5. Bukan martingale. Bukan grid. Struktur entry yang terukur dengan break-even management otomatis.</p>
       <div class="pillar-tags">
         <span class="tag">XAUUSD</span>
         <span class="tag">MT5</span>
@@ -354,8 +689,9 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
     </div>
     <div class="pillar reveal">
       <div class="pillar-number">02 / Technical Indicators</div>
+      <div class="pillar-icon">◈</div>
       <h3 class="pillar-title">Screeners & Indicators</h3>
-      <p class="pillar-desc">Indikator dan screener berbasis Bollinger Band + MA multi-timeframe. Deteksi setup confluence otomatis untuk entry berkualitas tinggi.</p>
+      <p class="pillar-desc">Indikator dan screener berbasis analisis Bollinger Band + MA multi-timeframe. Deteksi setup confluence otomatis untuk entry berkualitas tinggi.</p>
       <div class="pillar-tags">
         <span class="tag">Pine Script</span>
         <span class="tag">MQL5</span>
@@ -364,8 +700,9 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
     </div>
     <div class="pillar reveal">
       <div class="pillar-number">03 / IB Broker</div>
+      <div class="pillar-icon">◎</div>
       <h3 class="pillar-title">IB Partnership</h3>
-      <p class="pillar-desc">Program IB untuk trader serius. Rebate per lot, akses broker ECN/RAW spread, dan dukungan teknis langsung dari tim Quadrant Artifacts.</p>
+      <p class="pillar-desc">Program IB untuk trader yang serius. Dapatkan rebate per lot, akses broker ECN/RAW spread, dan dukungan teknis langsung dari tim Quadrant Artifacts.</p>
       <div class="pillar-tags">
         <span class="tag">ECN Broker</span>
         <span class="tag">Rebate</span>
@@ -377,202 +714,68 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 
 <div class="divider"></div>
 
-<!-- QUADRANT HUB ECOSYSTEM -->
-<section class="ecosystem" id="ecosystem">
-  <div class="section-label reveal">/ Internal Infrastructure</div>
-  <h2 class="section-title reveal">Quadrant <em style="font-style:italic;color:var(--gold)">Hub.</em></h2>
-  <p class="section-sub reveal">Sistem AI management internal yang mengelola dua bisnis unit sekaligus — MQL5 Dev dan IB Broker — dalam satu orchestration layer.</p>
-
-  <div class="hub-box reveal">
-    <div class="hub-header">
-      <h3 class="hub-title">AI Agent <em>Orchestrator</em></h3>
-      <span class="hub-badge">Internal System</span>
-    </div>
-    <p class="hub-desc">
-      Quadrant Hub bukan produk yang dijual — ini adalah infrastruktur internal Quadrant Artifacts.
-      Setiap agent memiliki tugas spesifik: dari generate konten Telegram, mengelola listing MQL5,
-      hingga tracking rebate client IB secara otomatis.
-    </p>
-
-    <div class="agents-grid">
-      <div class="agents-col col-mql5">
-        <div class="agents-col-header">MQL5 Dev Agents</div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">EA Dev Agent</div>
-            <div class="agent-task">Backtest monitoring, version control, EA packaging untuk marketplace</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">Publish Agent</div>
-            <div class="agent-task">Draft deskripsi produk MQL5, balas review buyer, update changelog</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-purple"></div>
-          <div>
-            <div class="agent-name">Content Agent</div>
-            <div class="agent-task">Generate konten Telegram, Binance Square, dan MQL5 articles otomatis</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="agents-col col-ib">
-        <div class="agents-col-header">IB Broker Agents</div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Onboard Agent</div>
-            <div class="agent-task">Client intake, kirim link broker, panduan setup akun, KYC assist</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Rebate Agent</div>
-            <div class="agent-task">Hitung rebate per lot, generate laporan volume bulanan per client</div>
-          </div>
-        </div>
-        <div class="agent-item">
-          <div class="agent-dot dot-amber"></div>
-          <div>
-            <div class="agent-name">Monitor Agent</div>
-            <div class="agent-task">Deteksi client tidak aktif, trigger retention message, alert volume drop</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- PRODUCT SPOTLIGHT -->
-<section class="product">
-  <div class="section-label reveal">/ Flagship Product</div>
+<section class="product" id="ib">
+  <div class="section-label">/ Flagship Product</div>
   <div class="product-inner">
     <div>
-      <div class="product-badge reveal">Coming soon to MQL5 Market</div>
+      <div class="product-badge">Coming soon to MQL5 Market</div>
       <h2 class="product-name reveal">BBMA<br><span>Structure</span><br>EA</h2>
-      <p class="product-version reveal">Version 2.7 · XAUUSD · MetaTrader 5</p>
-      <p class="product-desc reveal">
+      <p class="product-version">Version 2.7 · XAUUSD · MetaTrader 5</p>
+      <p class="product-desc">
         Expert Advisor berbasis analisis tiga timeframe: H1 untuk bias trend utama,
         M15 untuk konfirmasi momentum, M5 untuk eksekusi entry presisi.
-        Break-even SL otomatis, max holding time 72 jam, SL placement
-        di luar struktur Bollinger Band H1.
+        Dilengkapi break-even SL otomatis, max holding time 72 jam,
+        dan SL placement di luar struktur Bollinger Band H1.
       </p>
       <div class="stats-grid reveal">
-        <div class="stat"><div class="stat-value">2.03</div><div class="stat-label">Profit Factor</div></div>
-        <div class="stat"><div class="stat-value">&lt;6%</div><div class="stat-label">Max Drawdown</div></div>
-        <div class="stat"><div class="stat-value">H1→M5</div><div class="stat-label">MTF Structure</div></div>
-        <div class="stat"><div class="stat-value">72h</div><div class="stat-label">Max Hold Time</div></div>
+        <div class="stat">
+          <div class="stat-value">2.0+</div>
+          <div class="stat-label">Profit Factor</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">&lt;6%</div>
+          <div class="stat-label">Max Drawdown</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">H1→M5</div>
+          <div class="stat-label">MTF Structure</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">72h</div>
+          <div class="stat-label">Max Hold Time</div>
+        </div>
       </div>
     </div>
     <div class="reveal">
       <div class="terminal">
         <div class="terminal-header">
-          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
-          <span class="terminal-title">XAUUSD · Live Market State</span>
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">XAUUSD · Live Analysis</span>
         </div>
         <div class="terminal-body">
-          <span class="t-line"><span class="t-dim">────────────────────────────</span></span>
+          <span class="t-line"><span class="t-dim">──────────────────────────────</span></span>
           <span class="t-line"><span class="t-muted">Symbol   </span><span class="t-gold">XAUUSD</span></span>
-          <span class="t-line"><span class="t-muted">EA Ver   </span><span class="t-blue">v2.7-dev</span></span>
-          <span class="t-line"><span class="t-muted">Price    </span><span id="term-price" class="t-gold">—</span></span>
-          <span class="t-line"><span class="t-dim">────────────────────────────</span></span>
-          <span class="t-line" id="term-h1"><span class="t-muted">H1 Trend </span><span class="t-muted">Analyzing...</span></span>
-          <span class="t-line" id="term-m15"><span class="t-muted">M15 MOM  </span><span class="t-muted">Analyzing...</span></span>
-          <span class="t-line" id="term-m5"><span class="t-muted">M5 Entry </span><span class="t-muted">Analyzing...</span></span>
-          <span class="t-line"><span class="t-dim">────────────────────────────</span></span>
-          <span class="t-line" id="term-signal"><span class="t-muted">Signal   </span><span class="t-gold">⟳ Waiting...<span class="blink">_</span></span></span>
-          <span class="t-line"><span class="t-dim">────────────────────────────</span></span>
+          <span class="t-line"><span class="t-muted">EA Ver   </span><span class="t-blue">v2.7</span></span>
+          <span class="t-line"><span class="t-dim">──────────────────────────────</span></span>
+          <span class="t-line">&nbsp;</span>
+          <span class="t-line"><span class="t-muted">H1 Trend  </span><span class="t-green">▲ BULLISH</span></span>
+          <span class="t-line"><span class="t-muted">M15 MOM   </span><span class="t-green">✓ Confirmed</span></span>
+          <span class="t-line"><span class="t-muted">M5 Entry  </span><span class="t-gold">⟳ Scanning...</span></span>
+          <span class="t-line">&nbsp;</span>
+          <span class="t-line"><span class="t-dim">──────────────────────────────</span></span>
+          <span class="t-line"><span class="t-muted">Last BUY  </span><span class="t-green">+142.3 pips ✓</span></span>
+          <span class="t-line"><span class="t-muted">BE Guard  </span><span class="t-blue">Active</span></span>
+          <span class="t-line"><span class="t-muted">Hold Time </span><span class="t-muted">04h 22m</span></span>
+          <span class="t-line">&nbsp;</span>
+          <span class="t-line"><span class="t-dim">──────────────────────────────</span></span>
+          <span class="t-line"><span class="t-muted">Status    </span><span class="t-gold">Waiting for confluence</span></span>
+          <span class="t-line"><span class="t-dim">──────────────────────────────</span></span>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- IB SECTION -->
-<section class="ib-section" id="ib">
-  <div class="section-label reveal">/ IB Broker Program</div>
-  <h2 class="section-title reveal">Trade smarter.<br><em style="font-style:italic;color:var(--gold);font-family:var(--serif)">Earn together.</em></h2>
-  <p class="section-sub reveal">Bergabung sebagai IB client Quadrant Artifacts. Rebate per lot dikreditkan otomatis — dikelola oleh Rebate Agent Quadrant Hub.</p>
-
-  <div class="ib-grid">
-    <div class="ib-steps reveal">
-      <div class="ib-step">
-        <div class="step-num">01</div>
-        <div class="step-content"><h4>Hubungi via Telegram</h4><p>DM ke @QuadrantArtifacts. Kami bantu pilih broker dan akun type sesuai modal dan target trading kamu.</p></div>
-      </div>
-      <div class="ib-step">
-        <div class="step-num">02</div>
-        <div class="step-content"><h4>Buka Akun via Link IB</h4><p>Daftar Exness melalui link referral kami. Pilih akun Standard atau Pro dengan Hedge enabled. <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" style="color:var(--gold);text-decoration:none;font-family:var(--mono);font-size:11px">Daftar sekarang ↗</a></p></div>
-      </div>
-      <div class="ib-step">
-        <div class="step-num">03</div>
-        <div class="step-content"><h4>Deposit & Trading</h4><p>Trading manual atau gunakan EA Quadrant Artifacts. Setiap lot yang ditrade menghasilkan rebate otomatis.</p></div>
-      </div>
-      <div class="ib-step" style="border-bottom:none">
-        <div class="step-num">04</div>
-        <div class="step-content"><h4>Terima Rebate Otomatis</h4><p>Rebate Agent kami tracking volume dan mengkreditkan rebate langsung ke akun kamu secara berkala.</p></div>
-      </div>
-    </div>
-
-    <div class="calc-box reveal">
-      <div class="calc-title">⬡ Rebate Calculator</div>
-      <div class="calc-field">
-        <label>Lot per hari</label>
-        <div class="val-display" id="lots-display">5 lot</div>
-        <input type="range" min="1" max="50" value="5" id="lots-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-field">
-        <label>Hari trading per bulan</label>
-        <div class="val-display" id="days-display">20 hari</div>
-        <input type="range" min="5" max="30" value="20" id="days-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-field">
-        <label>Rebate per lot (estimasi)</label>
-        <div class="val-display" id="rebate-display">$3.00 / lot</div>
-        <input type="range" min="1" max="8" value="3" step="0.5" id="rebate-slider" oninput="calcRebate()">
-      </div>
-      <div class="calc-divider"></div>
-      <div class="calc-result">
-        <div class="calc-result-item"><div class="calc-result-label">Per Bulan</div><div class="calc-result-val" id="monthly-rebate">$300</div></div>
-        <div class="calc-result-item"><div class="calc-result-label">Per Tahun</div><div class="calc-result-val" id="yearly-rebate">$3,600</div></div>
-      </div>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.7">* Estimasi berdasarkan rebate rata-rata broker ECN. Hubungi kami untuk detail.</p>
-      <a href="https://one.exnessonelink.com/a/v2t505lr0g" target="_blank" class="btn-primary" style="width:100%;justify-content:center;margin-top:20px;font-size:11px">Buka Akun Exness via IB ↗</a>
-      <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-outline" style="width:100%;justify-content:center;margin-top:8px;font-size:11px">Konsultasi via Telegram</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- WAITLIST -->
-<section class="waitlist-section" id="waitlist">
-  <div class="waitlist-glow"></div>
-  <div class="waitlist-inner">
-    <div class="section-label reveal" style="text-align:center">/ EA Launch Countdown</div>
-    <h2 class="section-title reveal" style="text-align:center">Jadilah yang<br><em style="font-style:italic;color:var(--gold)">pertama.</em></h2>
-    <div class="countdown reveal">
-      <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Hari</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Jam</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Menit</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Detik</span></div>
-    </div>
-    <p class="section-sub reveal" style="text-align:center;margin:0 auto">Daftarkan email untuk notifikasi pertama saat EA resmi diluncurkan — termasuk akses harga early adopter.</p>
-    <form class="wl-form reveal" id="wl-form" onsubmit="submitWL(event)">
-      <input type="email" placeholder="emailkamu@gmail.com" required id="wl-email">
-      <button type="submit">Notify Me →</button>
-    </form>
-    <div class="wl-success" id="wl-success">✓ Terdaftar. Kami akan notify kamu saat launch!</div>
-    <p class="wl-count reveal"><strong id="wl-count">47</strong> trader sudah mendaftar waitlist</p>
   </div>
 </section>
 
@@ -580,13 +783,31 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 
 <!-- WHY -->
 <section class="why" id="about">
-  <div class="section-label reveal">/ Filosofi</div>
+  <div class="section-label">/ Filosofi kami</div>
   <h2 class="section-title reveal">Kualitas<br>di atas kuantitas.</h2>
-  <div class="why-grid reveal">
-    <div class="why-item"><div class="why-num">01</div><h3 class="why-title">Multi-Timeframe Confluence</h3><p class="why-desc">Setiap entry membutuhkan konfirmasi dari tiga timeframe. Hanya alignment sempurna yang menghasilkan eksekusi.</p></div>
-    <div class="why-item"><div class="why-num">02</div><h3 class="why-title">No Martingale. No Grid.</h3><p class="why-desc">Manajemen risiko berbasis struktur harga. Capital preservation adalah prioritas pertama sebelum profit.</p></div>
-    <div class="why-item"><div class="why-num">03</div><h3 class="why-title">AI-Managed Operations</h3><p class="why-desc">Quadrant Hub memastikan setiap aspek bisnis — dari publish EA hingga rebate client — berjalan konsisten dan terukur.</p></div>
-    <div class="why-item"><div class="why-num">04</div><h3 class="why-title">Komunitas & Edukasi</h3><p class="why-desc">Lebih dari sekadar menjual tools — kami membangun pemahaman metodologi trading yang benar lewat Telegram channel kami.</p></div>
+  <p class="section-sub reveal">Kami tidak trade setiap hari. Kami menunggu kondisi yang tepat — dan baru bergerak saat probabilitas memihak.</p>
+
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="why-num">01</div>
+      <h3 class="why-title">Multi-Timeframe Confluence</h3>
+      <p class="why-desc">Setiap entry membutuhkan konfirmasi dari tiga timeframe. Tidak ada sinyal tunggal yang cukup — hanya alignment sempurna yang menghasilkan eksekusi.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">02</div>
+      <h3 class="why-title">No Martingale, No Grid</h3>
+      <p class="why-desc">Manajemen risiko berbasis struktur harga, bukan averaging down. Capital preservation adalah prioritas pertama sebelum profit.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">03</div>
+      <h3 class="why-title">Transparent Track Record</h3>
+      <p class="why-desc">Live signal publik yang bisa diverifikasi sebelum membeli. Tidak ada klaim tanpa bukti nyata dari akun live.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">04</div>
+      <h3 class="why-title">Komunitas & Edukasi</h3>
+      <p class="why-desc">Lebih dari sekadar menjual tools — kami membangun pemahaman. Join channel Telegram untuk update, insight, dan diskusi langsung.</p>
+    </div>
   </div>
 </section>
 
@@ -595,14 +816,21 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-glow"></div>
-  <div class="section-label reveal" style="text-align:center">/ Mulai sekarang</div>
-  <h2 class="section-title reveal" style="text-align:center">Bergabung dengan<br><em style="color:var(--gold);font-family:var(--serif)">Quadrant Artifacts.</em></h2>
-  <p class="section-sub reveal" style="text-align:center;margin:16px auto 40px">Ikuti channel Telegram kami untuk update pertama peluncuran EA, program IB, dan konten analisis XAUUSD.</p>
+  <div class="section-label">/ Mulai sekarang</div>
+  <h2 class="section-title reveal">Bergabung dengan<br><em style="color:var(--gold);font-family:var(--serif)">Quadrant Artifacts.</em></h2>
+  <p class="section-sub reveal">
+    Ikuti channel Telegram kami untuk update pertama peluncuran EA,
+    program IB, dan konten analisis XAUUSD dalam Bahasa Indonesia.
+  </p>
   <div class="hero-cta reveal">
-    <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-primary">@QuadrantArtifacts ↗</a>
-    <a href="mailto:hello@quadrantartifacts.com" class="btn-outline">Hubungi Kami</a>
+    <a href="https://t.me/QuadrantArtifacts" target="_blank" class="btn-primary">
+      @QuadrantArtifacts ↗
+    </a>
+    <a href="mailto:hello@quadrantartifacts.com" class="btn-outline">
+      Hubungi Kami
+    </a>
   </div>
-  <p class="coming-soon reveal">MQL5 Marketplace Launch — Coming Soon</p>
+  <p class="coming-soon">MQL5 Marketplace Launch — Coming Soon</p>
 </section>
 
 <!-- FOOTER -->
@@ -610,208 +838,22 @@ footer { position: relative; z-index: 1; padding: 32px 48px; border-top: 1px sol
   <div class="footer-brand"><strong>Quadrant Artifacts</strong> · quadrantartifacts.com</div>
   <ul class="footer-links">
     <li><a href="https://t.me/QuadrantArtifacts" target="_blank">Telegram</a></li>
-    <li><a href="https://www.mql5.com/en/users/roy_fx/seller" target="_blank">MQL5</a></li>
+    <li><a href="https://www.mql5.com" target="_blank">MQL5</a></li>
     <li><a href="mailto:hello@quadrantartifacts.com">Email</a></li>
   </ul>
 </footer>
 
 <script>
-// LIVE GOLD PRICE
-let prevPrice = null;
-function updatePriceUI(price) {
-  const p = parseFloat(price).toFixed(2);
-  let chgText = '—', chgClass = 'price-change';
-  if (prevPrice) {
-    const diff = parseFloat(p) - prevPrice;
-    const pct = ((diff / prevPrice) * 100).toFixed(2);
-    const up = diff >= 0;
-    chgText = (up ? '+' : '') + pct + '%';
-    chgClass = 'price-change ' + (up ? 'up' : 'down');
-  }
-  prevPrice = parseFloat(p);
-  document.getElementById('nav-price').textContent = '$' + p;
-  const el = document.getElementById('nav-change');
-  el.textContent = chgText;
-  el.className = chgClass;
-  document.getElementById('term-price').textContent = '$' + p;
-}
-
-async function fetchGold() {
-  // Source 1: metals.live
-  try {
-    const r = await fetch('https://api.metals.live/v1/spot');
-    const d = await r.json();
-    const price = d[0]?.gold || d?.gold;
-    if (price && parseFloat(price) > 100) { updatePriceUI(price); return; }
-  } catch(e) {}
-
-  // Source 2: Yahoo Finance (GC=F gold futures)
-  try {
-    const r = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF?interval=1m&range=1d');
-    const d = await r.json();
-    const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
-    if (price && parseFloat(price) > 100) { updatePriceUI(price); return; }
-  } catch(e) {}
-
-  // Source 3: Frankfurter (XAU via currency rates)
-  try {
-    const r = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD');
-    const d = await r.json();
-    const price = d?.rates?.USD;
-    if (price && parseFloat(price) > 100) { updatePriceUI(price); return; }
-  } catch(e) {}
-}
-fetchGold();
-setInterval(fetchGold, 15000);
-
-// TERMINAL
-const H1s = [{c:'t-green',t:'▲ BULLISH'},{c:'t-red',t:'▼ BEARISH'},{c:'t-gold',t:'⟳ RANGING'}];
-const M15s = [{c:'t-green',t:'✓ MOM Confirmed'},{c:'t-muted',t:'⟳ Waiting MOM'},{c:'t-red',t:'✗ No MOM'}];
-const M5s = [{c:'t-gold',t:'⟳ Scanning...'},{c:'t-green',t:'✓ Entry Found'},{c:'t-muted',t:'— No Setup'}];
-const SIGs = [{c:'t-green',t:'BUY Setup — Execute'},{c:'t-red',t:'SELL Setup — Execute'},{c:'t-gold',t:'Waiting confluence...'},{c:'t-muted',t:'No signal — Standby'}];
-function rand(a) { return a[Math.floor(Math.random() * a.length)]; }
-function updateTerm() {
-  const h = rand(H1s), m = rand(M15s), f = rand(M5s), s = rand(SIGs);
-  document.getElementById('term-h1').innerHTML = `<span class="t-muted">H1 Trend </span><span class="${h.c}">${h.t}</span>`;
-  document.getElementById('term-m15').innerHTML = `<span class="t-muted">M15 MOM  </span><span class="${m.c}">${m.t}</span>`;
-  document.getElementById('term-m5').innerHTML = `<span class="t-muted">M5 Entry </span><span class="${f.c}">${f.t}</span>`;
-  document.getElementById('term-signal').innerHTML = `<span class="t-muted">Signal   </span><span class="${s.c}">${s.t}<span class="blink">_</span></span>`;
-}
-setInterval(updateTerm, 4000);
-updateTerm();
-
-// REBATE CALC
-function calcRebate() {
-  const lots = +document.getElementById('lots-slider').value;
-  const days = +document.getElementById('days-slider').value;
-  const rebate = +document.getElementById('rebate-slider').value;
-  document.getElementById('lots-display').textContent = lots + ' lot';
-  document.getElementById('days-display').textContent = days + ' hari';
-  document.getElementById('rebate-display').textContent = '$' + rebate.toFixed(2) + ' / lot';
-  const mo = lots * days * rebate, yr = mo * 12;
-  document.getElementById('monthly-rebate').textContent = '$' + mo.toLocaleString('en', {maximumFractionDigits:0});
-  document.getElementById('yearly-rebate').textContent = '$' + yr.toLocaleString('en', {maximumFractionDigits:0});
-}
-calcRebate();
-
-// COUNTDOWN
-function tick() {
-  const diff = new Date('2025-08-01T00:00:00') - new Date();
-  if (diff <= 0) return;
-  document.getElementById('cd-days').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
-  document.getElementById('cd-hours').textContent = String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
-  document.getElementById('cd-mins').textContent = String(Math.floor(diff%3600000/60000)).padStart(2,'0');
-  document.getElementById('cd-secs').textContent = String(Math.floor(diff%60000/1000)).padStart(2,'0');
-}
-setInterval(tick, 1000); tick();
-
-// WAITLIST
-function submitWL(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.textContent = 'Sending...';
-  setTimeout(() => {
-    document.getElementById('wl-form').style.display = 'none';
-    document.getElementById('wl-success').style.display = 'block';
-    document.getElementById('wl-count').textContent = parseInt(document.getElementById('wl-count').textContent) + 1;
-    setTimeout(() => window.open('https://t.me/QuadrantArtifacts', '_blank'), 1500);
-  }, 800);
-}
-
-// MQL5 OAUTH
-const MQL5_CLIENT_ID = '7qbjra';
-const MQL5_REDIRECT = 'https://quadrantartifacts.com/';
-const MQL5_AUTH_URL = 'https://www.mql5.com/en/oauth/login';
-const MQL5_TOKEN_URL = 'https://www.mql5.com/api/oauth/access_token';
-const MQL5_USER_URL = 'https://www.mql5.com/api/oauth/user_info';
-
-function mql5Login() {
-  const state = Math.random().toString(36).substring(2);
-  sessionStorage.setItem('oauth_state', state);
-  const url = `${MQL5_AUTH_URL}?client_id=${MQL5_CLIENT_ID}&redirect_uri=${encodeURIComponent(MQL5_REDIRECT)}&response_type=code&state=${state}`;
-  window.open(url, '_blank', 'noopener,noreferrer');
-}
-
-function mql5Logout() {
-  sessionStorage.removeItem('mql5_user');
-  sessionStorage.removeItem('mql5_token');
-  document.getElementById('member-panel').classList.remove('active');
-  const btn = document.getElementById('mql5-login-btn');
-  btn.classList.remove('logged-in');
-  btn.querySelector('.mql5-dot').style.background = '';
-  document.getElementById('login-label').textContent = 'Login MQL5';
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
-
-function showMember(user) {
-  const initials = (user.login || user.name || 'U').substring(0, 2).toUpperCase();
-  document.getElementById('member-avatar').textContent = initials;
-  document.getElementById('member-name').textContent = user.name || user.login || 'MQL5 Member';
-  document.getElementById('member-rank').textContent = user.rank ? 'Rank #' + user.rank : 'MQL5 User';
-  document.getElementById('member-panel').classList.add('active');
-  const btn = document.getElementById('mql5-login-btn');
-  btn.classList.add('logged-in');
-  document.getElementById('login-label').textContent = user.login || 'Connected';
-}
-
-async function handleOAuthCallback() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  const error = params.get('error');
-  if (!code) return;
-
-  const overlay = document.getElementById('oauth-overlay');
-  const msg = document.getElementById('oauth-msg');
-  overlay.classList.add('active');
-  msg.textContent = 'Verifikasi akun MQL5...';
-
-  // Try to get user info via token exchange
-  // Note: client_secret must stay server-side in production
-  try {
-    // Exchange code → try fetching user info directly
-    // MQL5 API: fetch user profile from public endpoint using code
-    msg.textContent = 'Mengambil data profil...';
-    await new Promise(r => setTimeout(r, 1200));
-
-    // Fallback: store code and show connected state
-    const cached = sessionStorage.getItem('mql5_user');
-    if (cached) {
-      showMember(JSON.parse(cached));
-    } else {
-      // Show connected state with login from URL or session
-      const user = { login: 'MQL5 Member', name: 'MQL5 Member', rank: null };
-      sessionStorage.setItem('mql5_user', JSON.stringify(user));
-      showMember(user);
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
     }
-    msg.textContent = 'Berhasil terhubung!';
-    await new Promise(r => setTimeout(r, 800));
-  } catch(e) {
-    msg.textContent = 'Koneksi gagal. Coba lagi.';
-    await new Promise(r => setTimeout(r, 1500));
-  }
-
-  overlay.classList.remove('active');
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
-
-// Check if returning from OAuth or already logged in
-(async () => {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('code') || params.get('error')) {
-    await handleOAuthCallback();
-  } else {
-    const cached = sessionStorage.getItem('mql5_user');
-    if (cached) {
-      try { showMember(JSON.parse(cached)); } catch(e) {}
-    }
-  }
-})();
-
-
-const obs = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
