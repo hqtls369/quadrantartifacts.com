@@ -729,7 +729,7 @@ function mql5Login() {
   const state = Math.random().toString(36).substring(2);
   sessionStorage.setItem('oauth_state', state);
   const url = `${MQL5_AUTH_URL}?client_id=${MQL5_CLIENT_ID}&redirect_uri=${encodeURIComponent(MQL5_REDIRECT)}&response_type=code&state=${state}`;
-  window.location.href = url;
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 function mql5Logout() {
